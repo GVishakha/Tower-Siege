@@ -13,6 +13,7 @@ var score=0;
 
 function preload(){
   bg = "images/light.jpg";
+  backgroundImg = loadImage(bg);
   getBackgroundImage();
   polygon_img=loadImage("images/polygon.png");
 }
