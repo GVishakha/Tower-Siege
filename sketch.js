@@ -8,26 +8,25 @@ var holder,polygon,ground;
 var stand1,stand2;
 var polygon;
 var slingShot;
-var polygon_img, backgroundImg;
+var polygon_img, backgroundImg,bg;
 var score=0;
-var bg = "images/light.jpg";
+
 function preload(){
   getBackgroundImage();
   polygon_img=loadImage("images/polygon.png");
-  
 }
 function setup() {
   createCanvas(900,400);
   engine = Engine.create();
   world = engine.world;
   Engine.run(engine);
+  
   ground = new Ground();
   stand1 = new Stand(390,300,250,10);
   stand2 = new Stand(700,200,200,10);
  
   //level one
   block1 = new Block(300,275,30,40);
-  console.log(block1);
   block2 = new Block(330,275,30,40);
   block3 = new Block(360,275,30,40);
   block4 = new Block(390,275,30,40);
@@ -62,24 +61,24 @@ function setup() {
   blocks9 = new Block(700,95,30,40);
 
   //polygon holder with slings
-  polygon = Bodies.circle(50,200,20);
+  polygon = Bodies.circle(100,200,20);
   World.add(world,polygon);
   
-  slingShot = new Slingshot(this.polygon,{x:100,y:200});
+  slingShot = new Slingshot(polygon,{x:100,y:200});
 
 }
 function draw() {
-  //background(56,44,44); 
-  if(backgroundImg)
+ if(backgroundImg)
     background(backgroundImg);
-  //Engine.update(engine);
-  text(mouseX + ',' + mouseY, 10, 15);
+
   textSize(20);
   fill("lightyellow");
   text("Drag the polygon to destroy the blocks",300,30);
   text("SCORE : "+score,750,40);
+  
   textSize(10);
   text("Press Space to get a second Chance to Play!!",650 ,350);
+  
   ground.display();
   stand1.display();
   stand2.display();
@@ -149,15 +148,16 @@ function draw() {
   blocks8.score();
   blocks9.score();
 }
+
 function mouseDragged(){
-  Matter.Body.setPosition(this.polygon,{x:mouseX,y:mouseY});
+  Matter.Body.setPosition(polygon,{x:mouseX,y:mouseY});
 }
 function mouseReleased(){
   slingShot.fly();
 }
 function keyPressed(){
   if(keyCode === 32){
-      slingShot.attach(this.polygon);
+      slingShot.attach(polygon);
   }
 }
 async function getBackgroundImage(){
@@ -166,7 +166,6 @@ async function getBackgroundImage(){
 
    var datetime = responseJSON.datetime;
    var hour = datetime.slice(11, 13);
-   //console.log(hour);
 
    if (hour >= 06 && hour <= 18) {
      bg = "images/light.jpg";
@@ -175,5 +174,4 @@ async function getBackgroundImage(){
    }
 
    backgroundImg = loadImage(bg);
-   console.log(backgroundImg);
 }
