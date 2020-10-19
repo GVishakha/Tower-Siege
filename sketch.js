@@ -8,12 +8,11 @@ var holder,polygon,ground;
 var stand1,stand2;
 var polygon;
 var slingShot;
-var polygon_img, backgroundImg,bg;
+var polygon_img, backgroundImg,bg,bgImg;
 var score=0;
 
 function preload(){
-  bg = "images/light.jpg";
-  backgroundImg = loadImage(bg);
+  bgImg = loadImage("images/light.jpg");
   getBackgroundImage();
   polygon_img=loadImage("images/polygon.png");
 }
@@ -72,6 +71,8 @@ function setup() {
 function draw() {
  if(backgroundImg)
     background(backgroundImg);
+  else
+    background(bgImg);
 
   textSize(20);
   fill("lightyellow");
